@@ -172,3 +172,31 @@ class Solution {
 
 
 
+### 1262. Greatest Sum Divisible by Three
+
+**DP Solution**
+
+- Runtime: **5 ms**, faster than 71.12% of Java online submissions for Greatest Sum Divisible by Three.
+
+- Memory Usage: **46.9 MB**, less than 100.00% of Java online submissions for Greatest Sum Divisible by Three.
+
+```java
+class Solution {
+    public int maxSumDivThree(int[] nums) {
+      	//dp[1],dp[2] have to be Integer.Min_VALUE, not 0
+        int[] dp = new int[]{0, Integer.MIN_VALUE, Integer.MIN_VALUE};
+        for (int n: nums) {
+            int[] cur = new int[3];
+            for(int i = 0; i < 3; i++) {
+                cur[(i + n) % 3] = Math.max(dp[(i + n) % 3], dp[i] + n);    
+            }
+            dp = cur;
+        }
+        
+        return dp[0];
+    }
+}
+```
+
+**[Explanation](https://leetcode.com/problems/greatest-sum-divisible-by-three/discuss/431077/JavaC%2B%2BPython-One-Pass-O(1)-space)**
+
