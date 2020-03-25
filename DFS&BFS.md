@@ -2,7 +2,7 @@
 
 
 
-### Word Search
+### 79. Word Search
 
 - Runtime: **5 ms**, faster than 79.61% of Java online submissions for Word Search.
 

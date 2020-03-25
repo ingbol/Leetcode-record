@@ -2,7 +2,7 @@
 
 
 
-### Maximux Product Subarray
+### 152. Maximum Product Subarray
 
 - Runtime: **1 ms**, faster than 98.64% of Java online submissions for Maximum Product Subarray.
 
