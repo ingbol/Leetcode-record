@@ -30,6 +30,8 @@ class Solution {
 
 
 
+---
+
 ### 27. Remove Duplicates from Sorted Array II
 
 - Runtime: **0 ms**
@@ -60,6 +62,186 @@ class Solution {
             }
         }
         return i + 1;
+    }
+}
+```
+
+
+
+---
+
+### 167. Two Sum II - Input array is sorted
+
+- Runtime: 1 ms, faster than 46.30% of Java online submissions for Two Sum II - Input array is sorted.
+
+- Memory Usage: 43.1 MB, less than 5.22% of Java online submissions for Two Sum II - Input array is sorted.
+
+**one pointer from the start, the other from the end.**
+
+```java
+class Solution {
+    public int[] twoSum(int[] numbers, int target) {
+        if (numbers == null) return null;
+        int i = 0;
+        int j = numbers.length -1;
+        while (i < j) {
+            if (numbers[i] + numbers[j] == target) {
+                return new int[]{i + 1, j + 1};
+            } else if (numbers[i] + numbers[j] >target) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        
+        return null;
+    }
+}
+```
+
+
+
+---
+
+### 633. Sum of Square Numbers
+
+- Runtime: 2 ms, faster than 97.51% of Java online submissions for Sum of Square Numbers.
+
+- Memory Usage: 36.1 MB, less than 7.14% of Java online submissions for Sum of Square Numbers.
+
+```java
+class Solution {
+    public boolean judgeSquareSum(int c) {
+        if (c < 0) {
+            return false;
+        }
+        int i = 0;
+        int j = (int) Math.sqrt(c); //pruning
+        while (i <= j) {
+            if (i * i + j * j == c) {
+                return true;
+            } else if (i * i + j * j > c) {
+                j--;
+            } else {
+                i++;
+            }
+        }
+        
+        return false;
+    }
+}
+```
+
+
+
+---
+
+### 345.  Reverse Vowels of a String
+
+- Runtime: 3 ms, faster than 81.30% of Java online submissions for Reverse Vowels of a String.
+
+- Memory Usage: 39.9 MB, less than 75.86% of Java online submissions for Reverse Vowels of a String.
+
+**HashSet's `.contain()` method is O(1)**
+
+```java
+class Solution {
+    private final static HashSet<Character> vowels = new HashSet<>(
+        Arrays.asList('a', 'e', 'i', 'o','u', 'A', 'E', 'I', 'O', 'U'));
+   
+    public String reverseVowels(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        char[] ans = new char[s.length()];
+        while (i <= j) {
+            char ci = s.charAt(i);
+            char cj = s.charAt(j);
+            if (!vowels.contains(ci)) {
+                ans[i++] = ci;
+            } else if (!vowels.contains(cj)) {
+                ans[j--] = cj;
+            } else {
+                ans[i++] = cj;
+                ans[j--] = ci;
+            }
+        }
+        
+        return String.valueOf(ans);  //char[] -> String
+    }
+}
+```
+
+
+
+---
+
+### 680. Valid Palindrome II
+
+- Runtime: 7 ms, faster than 62.01% of Java online submissions for Valid Palindrome II.
+
+- Memory Usage: 40.5 MB, less than 5.55% of Java online submissions for Valid Palindrome II.
+
+```java
+class Solution {
+    public boolean validPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+        
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return isPalindrome(s, i + 1, j) || isPalindrome(s, i, j - 1);
+            }
+            i++;
+            j--;
+        }
+        
+        return true;
+    }
+    
+    private boolean isPalindrome(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)){
+                return false;
+            }
+            i++;
+            j--;
+        }
+        
+        return true;
+    }
+}
+```
+
+
+
+---
+
+### 88. Merge Sorted Array
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Merge Sorted Array.
+
+- Memory Usage: 38.3 MB, less than 5.94% of Java online submissions for Merge Sorted Array.
+
+**the most important thing is searching from end to start**
+
+```java
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int index1 = m - 1;
+        int index2 = n - 1;
+        int indexMerge = m + n - 1;
+        
+        while(indexMerge >= 0) {
+            if (index1 < 0) {
+                nums1[indexMerge--] = nums2[index2--];
+            } else if (index2 < 0) {
+                nums1[indexMerge--] = nums1[index1--];
+            } else if(nums1[index1] > nums2[index2]) {
+                nums1[indexMerge--] = nums1[index1--];
+            } else {
+                nums1[indexMerge--] = nums2[index2--];
+            }
+        }
     }
 }
 ```
