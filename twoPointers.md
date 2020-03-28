@@ -246,3 +246,91 @@ class Solution {
 }
 ```
 
+
+
+---
+
+### 141. Linked List Cycle
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Linked List Cycle.
+
+- Memory Usage: 40.4 MB, less than 5.71% of Java online submissions for Linked List Cycle.
+
+**If there is a cycle in the linked list, two pointer with different speed will meet.**
+
+```java
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if (head == null) {
+            return false;
+        }
+        ListNode l1 = head;
+        ListNode l2 = head.next;
+        while (l1 != null && l2 != null && l2.next != null) {
+            if (l1 == l2) {
+                return true;
+            }
+            l1 = l1.next;
+            l2 = l2.next.next;
+        }
+        
+        return false;
+    }
+}
+```
+
+
+
+---
+
+### 524. Longest Word in Dictionary through Deleting
+
+- Runtime: 22 ms, faster than 41.45% of Java online submissions for Longest Word in Dictionary through Deleting.
+
+- Memory Usage: 40.8 MB, less than 27.27% of Java online submissions for Longest Word in Dictionary through Deleting.
+
+```java
+class Solution {
+    private String longestWord = "";
+    public String findLongestWord(String s, List<String> d) {
+        
+        for (String target : d) {
+            if (target.length() < longestWord.length()
+         ||(target.length() == longestWord.length() && longestWord.compareTo(target) < 0)) {
+                continue;
+            }
+            if (isSubStr(s, target)) {
+                longestWord = target;
+            }
+        } 
+        
+        return longestWord;
+    }
+    
+    private boolean isSubStr(String s, String target) {
+        int i = 0;
+        int j = 0;
+        
+        while (i < s.length() && j < target.length()) {
+            if (s.charAt(i) == target.charAt(j)) {
+                j++;
+            }
+            i++;
+        }
+        
+        return j == target.length();
+    }
+}
+```
+
