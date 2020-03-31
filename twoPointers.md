@@ -297,7 +297,6 @@ public class Solution {
 ### 524. Longest Word in Dictionary through Deleting
 
 - Runtime: 22 ms, faster than 41.45% of Java online submissions for Longest Word in Dictionary through Deleting.
-
 - Memory Usage: 40.8 MB, less than 27.27% of Java online submissions for Longest Word in Dictionary through Deleting.
 
 ```java
@@ -338,4 +337,4 @@ class Solution {
 
 ---
 
-### 55
+### 
