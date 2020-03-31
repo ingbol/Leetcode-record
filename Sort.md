@@ -138,3 +138,122 @@ class Solution {
 }
 ```
 
+
+
+---
+
+### 451. Sort Characters By Frequency
+
+- Runtime: **9 ms**, faster than 91.40% of Java online submissions for Sort Characters By Frequency.
+
+- Memory Usage: **40.1 MB**, less than 37.04% of Java online submissions for Sort Characters By Frequency.
+
+**Bucket Sort**
+
+```java
+class Solution {
+    public String frequencySort(String s) {
+        Map<Character, Integer> freqs = new HashMap<>();
+        for(char ch : s.toCharArray()) {
+            freqs.put(ch, freqs.getOrDefault(ch, 0) + 1);
+        }
+        
+        List<Character>[] buckets = new ArrayList[s.length() + 1];
+        for (char ch : freqs.keySet()) {
+            if (buckets[freqs.get(ch)] == null) {
+                buckets[freqs.get(ch)] = new ArrayList<>();
+            }
+            buckets[freqs.get(ch)].add(ch);
+        }
+        
+        StringBuilder str = new StringBuilder();
+        for (int i = buckets.length - 1; i >= 0; i--) {
+            if (buckets[i] == null) {
+                continue;
+            } else {
+                for(char ch : buckets[i]){
+                    for (int j = 0; j < i; j++) {
+                        str.append(ch);
+                    }
+                }
+            }
+        }
+        
+        return str.toString();
+    }
+}
+```
+
+
+
+---
+
+### 75. Sort Colors
+
+**2 Pass**
+
+- Runtime: **0 ms**
+
+- Memory Usage: **38.3 MB**
+
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        int[] count = {0, 0, 0};
+        for (int num : nums){
+            if (num == 0) {
+                count[0]++;
+            } else if (num == 1) {
+                count[1]++;
+            } else {
+                count[2]++;
+            }
+        }
+        
+        int l = 0;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < count[i]; j++) {
+                nums[l] = i;
+                l++;
+            }
+        }
+    }
+}
+```
+
+
+
+**1 Pass**
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Sort Colors.
+
+- Memory Usage: 38 MB, less than 5.51% of Java online submissions for Sort Colors.
+
+```java
+class Solution {
+    public void sortColors(int[] nums) {
+        // 1 pass
+        
+        int zero = 0;
+        int one = 0;
+        int two = nums.length - 1;
+        
+        while (one <= two) {
+            if (nums[one] == 0) {
+                swap(nums, zero++, one++);
+            } else if (nums[one] == 2) {
+                swap(nums, two--, one);
+            } else {
+                one++;
+            }
+        }
+    }
+    
+    private void swap(int[] nums, int a, int b) {
+        int temp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = temp;
+    }
+}
+```
+
