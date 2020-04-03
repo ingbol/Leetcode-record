@@ -6,50 +6,6 @@ This page records some problems which can solved without specific algorithms.
 
 
 
-### 121. Best Time to Buy and Sell Stock
-
-- Runtime: **1 ms**
-
-- Memory Usage: **42.5 MB**
-
-**Solution 1**
-
-```java
-class Solution {
-    public int maxProfit(int[] prices) {
-        int maxCur = 0, maxSoFar = 0;
-        for(int i = 1; i < prices.length; i++){
-          maxCur = Math.max(0, maxCur += prices[i] - prices[i-1]);
-          maxSoFar = Math.max(maxSoFar, maxCur); 
-        }
-        return maxSoFar;
-    }
-}
-```
-
-**Solution2**
-
-```java
-class Solution {
-    public int maxProfit(int[] prices) {
-        int min = 0, profit = 0;
-        for(int i = 1; i < prices.length; i++){
-            if( prices[i] < min ){
-                min = prices[i];
-            } else if( profit < prices[i] - min ){
-                profit = prices[i] - min;
-            }
-        }
-        
-        return profit;
-    }
-}
-```
-
-
-
----
-
 ### 122. Best Time to Buy and Sell Stock II
 
 - Runtime: **1 ms**
