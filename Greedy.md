@@ -203,3 +203,203 @@ class Solution {
 }
 ```
 
+
+
+---
+
+### 122. Best Time to Buy and Sell Stock II
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Best Time to Buy and Sell Stock II.
+
+- Memory Usage: 40.1 MB, less than 9.52% of Java online submissions for Best Time to Buy and Sell Stock II.
+
+get all profit
+
+[a, b, c, d], if `a <= b <= c <= d` , the `maxProfit = d - a =(d - c) + (c - b) + (b - a)` 
+
+```java
+class Solution {
+    public int maxProfit(int[] prices) {
+        int profit = 0;
+        
+        for (int i = 1; i < prices.length; i++) {
+            if(prices[i] > prices[i-1]) {
+                profit += prices[i] - prices[i-1];
+            }
+        }
+        
+        return profit;
+        
+    }
+}
+```
+
+
+
+---
+
+### 605. Can Place Flowers
+
+- Runtime: 1 ms, faster than 96.09% of Java online submissions for Can Place Flowers.
+
+- Memory Usage: 41 MB, less than 10.71% of Java online submissions for Can Place Flowers.
+
+```java
+class Solution {
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int count = 0;
+        
+        for (int i = 0; i < flowerbed.length; i++) {
+            if (flowerbed[i] == 1) {
+                continue;
+            }
+            
+          	//include boundary conditions
+            int pre = i == 0 ? 0 : i - 1;
+            int next = i == flowerbed.length - 1? flowerbed.length - 1 : i + 1;
+            if (flowerbed[pre] == 0 && flowerbed[next] == 0) {
+                count++;
+                flowerbed[i] = 1;
+            }
+        }
+        
+        return count >= n;
+    }
+}
+```
+
+
+
+---
+
+### 392. Is Subsequence
+
+- Runtime: 1 ms, faster than 100.00% of Java online submissions for Is Subsequence.
+
+- Memory Usage: 42.7 MB, less than 100.00% of Java online submissions for Is Subsequence.
+
+```java
+class Solution {
+    public boolean isSubsequence(String s, String t) {
+        int index = -1;
+        
+        for(char c : s.toCharArray()) {
+          	//.indexOf() will return -1 if it cannot find c
+            index = t.indexOf(c, index + 1);
+            if (index == -1) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+}
+```
+
+
+
+---
+
+### 665. Non-decreasing Array
+
+- Runtime: 1 ms, faster than 81.08% of Java online submissions for Non-decreasing Array.
+
+- Memory Usage: 41.1 MB, less than 47.62% of Java online submissions for Non-decreasing Array.
+
+**Do not affect subsequent operations**:  change the value of nums[i] to that of nums[i+1], only if this can not satisfy the requirements, we do reversely.
+
+```java
+class Solution {
+    public boolean checkPossibility(int[] nums) {
+        int count = 0;
+        
+        for (int i = 0; i < nums.length - 1; i++) {           
+            if(nums[i] > nums[i+1]) {
+                if(i == 0 || nums[i-1] <= nums[i+1]){
+                    nums[i] = nums[i+1];
+                } else {
+                    nums[i+1] =nums[i];
+                }
+                count++;
+            }
+            
+            if (count > 1) {
+                break;
+            }
+        }
+        
+        return count <= 1;
+    }
+}
+```
+
+
+
+---
+
+#### 53. Maximum Subarray
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Maximum Subarray.
+
+- Memory Usage: 39.4 MB, less than 9.39% of Java online submissions for Maximum Subarray.
+
+**it's fantastic**: when sum < 0, we make sum = nums[i]
+
+```java
+class Solution {
+    public int maxSubArray(int[] nums) {
+        int sum = 0;
+        int max = Integer.MIN_VALUE; // consider negative numbers
+        
+        for (int i = 0; i < nums.length; i++) {
+            sum = sum < 0 ? nums[i] : sum + nums[i]; // genuis!!         
+            max = Math.max(max, sum);
+        }
+        
+        return max;
+    }
+}
+```
+
+
+
+---
+
+#### 763. Partition Labels
+
+- Runtime: 3 ms, faster than 80.63% of Java online submissions for Partition Labels.
+
+- Memory Usage: 38.3 MB, less than 5.19% of Java online submissions for Partition Labels.
+
+use **int[26]** to record the last index of each character
+
+```java
+class Solution {
+    public List<Integer> partitionLabels(String S) {
+        List<Integer> count = new ArrayList<>();
+        int[] map = new int[26];
+        
+        // record the last index of each character
+        for (int i = 0; i < S.length(); i++) {
+            map[S.charAt(i) - 'a'] = i;
+        }
+        
+        int start = 0;
+        int last = 0;
+        for (int i = 0; i < S.length(); i++) {
+            last = Math.max(last, map[S.charAt(i) - 'a']);
+            if (last == i) {
+                count.add(last - start + 1);
+                start = last + 1;
+            }
+        }
+        
+        return count;
+    }
+}
+```
+
+
+
+---
+

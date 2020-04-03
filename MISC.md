@@ -6,37 +6,6 @@ This page records some problems which can solved without specific algorithms.
 
 
 
-### 122. Best Time to Buy and Sell Stock II
-
-- Runtime: **1 ms**
-
-- Memory Usage: **42.5 MB**
-
-```java
-class Solution {
-    public int maxProfit(int[] prices) {
-        int i = 0, buy, sell, profit = 0, N = prices.length - 1;
-        while( i < N ){
-          	//buy stock when the price is a local min
-            while( i < N && prices[i+1] <= prices[i] ) i++;
-            buy = prices[i];
-            
-          	//sell stock when the price is a local max
-            while( i < N && prices[i+1] > prices[i] ) i++;
-            sell = prices[i];
-            
-            profit += sell - buy;
-        }
-        
-        return profit;
-    }
-}
-```
-
-
-
----
-
 ### 1029. Two City Scheduling
 
 - Runtime: **1 ms**
