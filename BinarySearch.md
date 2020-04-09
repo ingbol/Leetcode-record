@@ -120,3 +120,101 @@ class Solution {
 }
 ```
 
+
+
+---
+
+### 278. First Bad Version
+
+Solution 1: 
+
+- Runtime: 26 ms, faster than 6.76% of Java online submissions for First Bad Version.
+
+- Memory Usage: 36.2 MB, less than 5.63% of Java online submissions for First Bad Version.
+
+```java
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        //Solution 1
+        
+         int l = 0;
+         int h = n;
+      
+         while (l <= h) {
+             int m = l + (h - l) / 2;
+             if (isBadVersion(m) && !isBadVersion(m - 1)) {
+                 return m;
+             }
+             if (isBadVersion(m)) { // m 落在了bad中
+                 h = m - 1;
+             } else {
+                 l = m + 1;
+             }
+         }
+        
+         return l;
+    }
+}
+```
+
+
+
+Solution 2: **easier to understand, and much quicker**
+
+- Runtime: 12 ms, faster than 98.24% of Java online submissions for First Bad Version.
+
+- Memory Usage: 36.1 MB, less than 5.63% of Java online submissions for First Bad Version.
+
+```java
+public class Solution extends VersionControl {
+    public int firstBadVersion(int n) {
+        //Solution 2
+        int l = 0;
+        int h = n;
+        
+        while (l < h) {
+            int m = l + (h - l) / 2;
+            if (isBadVersion(m)) {
+                h = m;      // target in [l, m]
+            } else {
+                l = m + 1; // target in [m + 1, h]
+            }
+        }
+        
+        return l;
+    }
+}
+```
+
+
+
+---
+
+### ⚠️153. Find Minimum in Rotated Sorted Array
+
+- : 0 ms, faster than 100.00% of Java online submissions for Find Minimum in Rotated Sorted Array.
+
+- Memory Usage: 39.2 MB, less than 59.09% of Java online submissions for Find Minimum in Rotated Sorted Array.
+
+**the most important place of this problem is the `if` 's condition**
+
+```java
+class Solution {
+    public int findMin(int[] nums) {
+        int l = 0;
+        int h = nums.length - 1;
+        
+        while (l < h) {
+            int m = l + (h - l) / 2;
+            if (nums[m] <= nums[h]) { //[l, m] 这个判断条件十分重要
+                h = m;
+            } else { //[m+1, h]
+                l = m + 1;
+            }
+        }
+        
+        return nums[l];
+    }
+}
+```
+
