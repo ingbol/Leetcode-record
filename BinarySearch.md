@@ -192,7 +192,7 @@ public class Solution extends VersionControl {
 
 ### ⚠️153. Find Minimum in Rotated Sorted Array
 
-- : 0 ms, faster than 100.00% of Java online submissions for Find Minimum in Rotated Sorted Array.
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Find Minimum in Rotated Sorted Array.
 
 - Memory Usage: 39.2 MB, less than 59.09% of Java online submissions for Find Minimum in Rotated Sorted Array.
 
@@ -217,4 +217,97 @@ class Solution {
     }
 }
 ```
+
+
+
+---
+
+### 34. Find First and Last Position of Element in Sorted Array
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Find First and Last Position of Element in Sorted Array.
+
+- Memory Usage: 42.6 MB, less than 100.00% of Java online submissions for Find First and Last Position of Element in Sorted
+
+```java
+class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        if(nums == null || nums.length == 0) {
+            return new int[]{-1, -1};
+        }
+        
+      	// find the first
+        int l = 0;
+        int h = nums.length - 1;
+        int[] res = new int[]{-1, -1};
+        
+        while (l < h) {
+            int m = l + (h -l) / 2;
+            if (nums[m] < target) {
+                l = m + 1;
+            } else {
+                h = m;
+            }
+        }
+        
+      	// find the last 
+        if (nums[l] != target) {
+            return res;
+        } else {
+            res[0] = l;
+            int i;
+            for (i = l; i < nums.length && nums[i] == nums[l]; i++);
+            res[1] = i - 1;
+            
+            return res;
+        }
+        
+    }
+}
+```
+
+### ⚠️⚠️⚠️the code which is  very helpful for understanding the binary search :
+
+```java
+public class Solution {
+public int[] searchRange(int[] nums, int target) {
+    int[] result = new int[2];
+    result[0] = findFirst(nums, target);
+    result[1] = findLast(nums, target);
+    return result;
+}
+
+private int findFirst(int[] nums, int target){
+    int idx = -1;
+    int start = 0;
+    int end = nums.length - 1;
+    while(start <= end){
+        int mid = (start + end) / 2;
+        if(nums[mid] >= target){
+            end = mid - 1;
+        }else{
+            start = mid + 1;
+        }
+        if(nums[mid] == target) idx = mid;
+    }
+    return idx;
+}
+
+private int findLast(int[] nums, int target){
+    int idx = -1;
+    int start = 0;
+    int end = nums.length - 1;
+    while(start <= end){
+        int mid = (start + end) / 2;
+        if(nums[mid] <= target){
+            start = mid + 1;
+        }else{
+            end = mid - 1;
+        }
+        if(nums[mid] == target) idx = mid;
+    }
+    return idx;
+}
+```
+
+
 
