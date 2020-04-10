@@ -48,3 +48,54 @@ class Solution {
 }
 ```
 
+
+
+---
+
+### 95. Unique Binary Search Trees II 
+
+```java
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<TreeNode> generateTrees(int n) {
+        if (n < 1) {
+            return new LinkedList<TreeNode>();
+        }
+        
+        return generateSubTrees(1, n);
+    }
+    
+    private List<TreeNode> generateSubTrees(int s, int e) { // start, end
+        List<TreeNode> res = new LinkedList<TreeNode>();
+        if (s > e){
+            res.add(null);
+            return res;
+        }
+        for (int i = s; i <= e; i++){
+            List<TreeNode> left = generateSubTrees(s, i - 1);
+            List<TreeNode> right = generateSubTrees(i + 1, e);
+            
+            for (TreeNode l : left) {
+                for (TreeNode r : right) {
+                    TreeNode root = new TreeNode(i);
+                    root.left = l;
+                    root.right = r;
+                    res.add(root);
+                }
+            }
+            
+        }
+        
+        return res;
+    }
+}
+```
+
