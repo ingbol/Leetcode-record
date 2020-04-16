@@ -2,11 +2,12 @@
 
 
 
-### 79. Word Search
+### 79. Word Search 
 
 - Runtime: **5 ms**, faster than 79.61% of Java online submissions for Word Search.
-
 - Memory Usage: **43.1 MB**, less than 20.41% of Java online submissions for Word Search.
+
+dfs
 
 ```java
 class Solution {
@@ -52,7 +53,10 @@ class Solution {
 ### 1091. Shortest Path in Binary Matrix
 
 - Runtime: 28ms
+
 - Memory: 41.9 mb
+
+  dfs
 
 ```java
 class Solution {
@@ -113,7 +117,7 @@ class Solution {
 
 - Memory Usage: 39.4 MB, less than 13.89% of Java online submissions for Perfect Squares.
 
-与1091套路，循环模式基本一致
+dfs 与1091套路，循环模式基本一致
 
 ```java
 class Solution {
@@ -182,6 +186,8 @@ class Solution {
 
 - Memory Usage: 40.2 MB, less than 77.37% of Java online submissions for Word Ladder
 
+dfs
+
 若使用297和1091的套路，使用Queue，runtime达1000ms+
 
 这里使用了Two-end BFS，最大可能减少了循环的次数
@@ -234,6 +240,55 @@ class Solution {
         }
         
         return 0;
+    }
+}
+```
+
+
+
+---
+
+### 695. Max Area of Island
+
+- Runtime: 3 ms, faster than 41.16% of Java online submissions for Max Area of Island.
+
+- Memory Usage: 40 MB, less than 96.30% of Java online submissions for Max Area of Island.
+
+bfs
+
+```java
+class Solution {
+    private int m, n;
+    private int[][] dirs = {{1, 0},{0, 1},{-1, 0},{0 ,-1}};
+    
+    public int maxAreaOfIsland(int[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        
+        m = grid.length;
+        n = grid[0].length;
+        int maxArea = 0;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                maxArea = Math.max(maxArea, dfs(grid, i, j));
+            }
+        }
+        
+        return maxArea;
+    }
+    
+    private  int dfs(int[][] grid, int r, int c) {
+        if (r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == 0) {
+            return 0;
+        }
+        grid[r][c] = 0;
+        int area = 1;
+        for (int[] dir : dirs) {
+            area += dfs(grid, r + dir[0], c + dir[1]);
+        }
+        return area;
     }
 }
 ```
