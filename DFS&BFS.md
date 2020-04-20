@@ -293,3 +293,157 @@ class Solution {
 }
 ```
 
+
+
+----
+
+### 200. Number of Islands
+
+- Runtime: 1 ms, faster than 99.98% of Java online submissions for Number of Islands.
+
+- Memory Usage: 42.2 MB, less than 27.44% of Java online submissions for Number of Islands.
+
+```java
+class Solution {
+    
+    int m;
+    int n;
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    public int numIslands(char[][] grid) {
+        if (grid == null || grid.length == 0 || grid[0].length == 0) {
+            return 0;
+        }
+        
+        m = grid.length;
+        n = grid[0].length;
+        int num = 0;
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    num++;
+                    dfs(grid, i, j);
+                }
+            }
+        }
+         return num;
+    }
+    
+    public void dfs(char[][] grid, int r, int c) {
+        if(r < 0 || r >= m || c < 0 || c >= n || grid[r][c] == '0') {
+            return;
+        }
+        grid[r][c] = '0';
+        for (int[] dir : dirs) {
+            dfs(grid, r + dir[0], c + dir[1]);
+        }
+    }
+}
+```
+
+
+
+---
+
+### 547. Friend Circles
+
+- Runtime: 0 ms, faster than 100.00% of Java online submissions for Friend Circles.
+
+- Memory Usage: 40.6 MB, less than 60.00% of Java online submissions for Friend Circles.
+
+这个题目比较特殊，值得复习。
+
+```java
+class Solution {
+    int n;
+    
+    public int findCircleNum(int[][] M) {
+        if (M == null || M.length == 0) {
+            return 0;
+        }
+        
+        n = M.length;
+        int num = 0;
+        boolean[] visited = new boolean[n]; //false
+        
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+                num++;
+                dfs(M, i, visited);
+            }
+        }
+        
+        return num;
+    }
+    
+    public void dfs(int[][] M, int i, boolean[] visited) {
+        if (visited[i]) {
+            return;
+        }
+        visited[i] = true;
+        for(int k = 0; k < n; k++) {
+            if (M[i][k] == 1) {
+                dfs(M, k, visited);
+            }
+        }
+    }
+}
+```
+
+
+
+---
+
+### 130. Surrounded Regions
+
+- Runtime: 1 ms, faster than 99.81% of Java online submissions for Surrounded Regions.
+
+- Memory Usage: 41.2 MB, less than 78.57% of Java online submissions for Surrounded Regions.
+
+```java
+class Solution {
+    int m;
+    int n;
+    int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+   
+    public void solve(char[][] board) {
+        if (board == null || board.length == 0 || board[0].length == 0 ) {
+            return;
+        }
+        
+        m = board.length;
+        n = board[0].length;
+        
+        for (int i = 0; i < m; i++){
+            dfs(board, i, 0);
+            dfs(board, i, n -1);
+        }
+        for (int i = 0; i < n; i++) {
+            dfs(board, 0, i);
+            dfs(board, m - 1, i);
+        }
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (board[i][j] == 'T'){
+                    board[i][j] = 'O';
+                } else if (board[i][j] == 'O'){
+                    board[i][j] = 'X';
+                }
+            }
+        }
+    }  
+    
+    public void dfs(char[][] board, int r, int c) {
+        if(r < 0|| r >= m || c < 0 || c >= n || board[r][c] != 'O'){
+            return;
+        }
+        board[r][c] = 'T';
+        for (int[] dir: dirs) {
+            dfs(board, r + dir[0], c + dir[1]);
+        }
+    }
+}
+```
+
